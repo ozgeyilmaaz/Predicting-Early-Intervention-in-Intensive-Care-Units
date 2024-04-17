@@ -1,7 +1,7 @@
 # Predicting-Early-Intervention-in-Intensive-Care-Units
 Thesis
 
-SUMMARY
+# SUMMARY
 ICU is a costly service with limited resources, where patients with serious health problems and who need to be followed up receive treatment. The general health status of patients in ICU may deteriorate suddenly and deteriorate rapidly. For this reason, these services are equipped with special medical devices, as early and correct interventions are required for patients.
 ICU admissions are used to monitor and treat conditions such as organ failure, heart attacks, severe physical injuries, strokes, COPD, sepsis, and coma. 
 Data such as vital signs, diagnoses, laboratory data of patients are stored in ICU. These data are used for patient follow-up, disease diagnosis and treatment. Intensive care units have become environments where it is necessary and appropriate to use artificial intelligence and machine learning applications because EMR data is too large and complex to be processed in the human brain. These practices paved the way for more efficient use of both human resources and hospital equipment.
