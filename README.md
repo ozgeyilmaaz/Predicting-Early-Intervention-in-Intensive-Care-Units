@@ -1,5 +1,4 @@
-# Predicting-Early-Intervention-in-Intensive-Care-Units
-Thesis
+# Predicting Early Intervention in Intensive Care Units (Thesis Study)
 
 # SUMMARY
 ICU is a costly service with limited resources, where patients with serious health problems and who need to be followed up receive treatment. The general health status of patients in ICU may deteriorate suddenly and deteriorate rapidly. For this reason, these services are equipped with special medical devices, as early and correct interventions are required for patients.
@@ -18,7 +17,7 @@ In generally, we aim to predict early intervention in intensive care units with 
 # Purpose of Thesis
 The aim of this study is to perform the early estimation of emergency interventions using machine learning algorithms in order to reduce the mortality rates of patients hospitalized in the intensive care unit with limited resources and high costs, to provide better service and to use resources more efficiently.
 
-# 1.2 The Databased Used
+# The Databased Used
 MIMIC-III is large, single-center, relational database consisting of 26 tables. It includes data on patients who have been admitted to an expansive tertiary hospital's ICU. The data includes the information of the patients during the processes they spent in the hospital as of their entry to the relevant units in the data set. This information includes vital signs, medications, laboratory measurements, observations and notes prepared by caregivers, fluid balance, procedure codes, diagnostic codes, imaging reports, hospital stay, survival data, and more. Data measurement types include demographics, clinical measurements, interventions, billing, medical history dictionary, pharmacotherapy, clinical laboratory tests and medical data. Data technology types are electronic medical record, medical record, electronic billing system, medical coding process document, free text format. Data is obtained with the help of these technologies. In recent years, the use of digital health record systems has increased gradually. 
 
 # Tables and Columns Used in This Study
@@ -28,30 +27,54 @@ MIMIC-III is large, single-center, relational database consisting of 26 tables. 
 Here, after importing the required libraries first, the tables to be used will be read appropriately, combined, and then, after performing the transform and imputation operations on the combined main table, a target column will be created for sepsis as a result of providing/not providing certain disease conditions to the table. After the data set is divided into train and test, the created models will be trained, and then the best model will be decided as a result of comparing the metrics of the models.
 ## Importing the Necessary Libraries
 •	import numpy as np
+
 It enables multidimensional array operations, data analysis and scientific computation.
+
 •	import pandas as pd
+
 It enables reading, analysis, manipulation and merging of data.
+
 •	from sklearn.model_selection import train_test_split
+
 It allows the data to be divided into training and test sets. With this function, some of the dataset is used to train the model, while some is used to test it. It basically takes input and target variables, train size as parameters.
+
 •	from sklearn.linear_model import LogisticRegression
+
 The 'LogisticRegression' class in the 'sklearn.linear_model' module is used to implement logistic regression, a classification algorithm. This class trains a model using input variables and target classes and is then used to classify new input features.
+
 •	from sklearn.tree import DecisionTreeClassifier
+
 The decision tree is used to build classification models. Required parameters are 'criterion' (Determines the split criterion. Usually set to "gini" or "entropy"), 'max_depth' (Determines the maximum depth of the tree), min_samples_split' (Determines the minimum number of samples in the node before splitting), 'min_samples_leaf' (Leaf) specifies the minimum number of samples in leaf nodes), 'max_features' (sets the minimum number of samples in leaf nodes).
+
 •	from tensorflow.keras.models import Sequential
+
 The Sequentials class in the 'tensorflow.keraws.models' module is used to create neural networks via Keras. It provides the possibility to add interconnected layers sequentially.
+
 •	from tensorflow.keras.layers import Dense
+
 The Dense class in the 'tensorflow.keras.layers' module is used to create fully connected layers. These layers connect each output of each neuron in the previous layer to each input of each neuron in the next layer. Fully connected layers are one of the most basic building blocks of a neural network model. The required parameters are the 'units' and 'activation' parameters. 'units' specifies the number of neurons in the layer, while 'activation' specifies the activation function to be used to calculate the layer's output.
+
 •	from tensorflow.keras.layers import Dropout
+
 The Dropout class is an editing technique used to prevent the model from over-learning. This class drops a randomly selected percentage to the output of the layer it takes as input and increases the remaining outputs proportionally. This is done before moving on to the next layer. Its parameter is 'rate'. This parameter specifies the probability of randomly dropping units at the output of the layer.
+
 •	from sklearn.preprocessing import StandardScaler
+
 ‘StandardScaler’ is used to standardize the data to avoid overfitting. 
+
 •	from sklearn.metrics import accuracy_score
+
 ‘accuracy_score’ is used evaluation metric for classification problems in machine learning. It is used to measure the accuracy or correctness of a classifier's predictions by comparing them to the true labels or targets.
+
 •	from sklearn.metrics import roc_curve, auc
+
 ‘roc_curve’ and ‘auc’ are commonly used for evaluating the performance of binary classification models. The ROC curve is a graphical representation of the performance of a classifier at various classification thresholds. The ‘auc’ function calculates the Area Under the ROC Curve (AUROC) for a binary classification model. 
+
 •	from datetime import datetime as dt
+
 It is used to convert the necessary columns into date format in order to be suitable for use in the model.
-5.2. Reading the Data Tables
+
+## Reading the Data Tables
 The 'read_csv' function under the 'pandas' library is used to read the data tables. This function takes the path of the file as a parameter. In this step, ADMISSIONS, CHARTEVENTS, ICUSTAYS, LABEVENTS and PATIENTS tables to be used for preprocessing and merge are read and assigned to a variable. D_ITEMS and D_LABITEMS tables were also read for analysis to determine which ID is kept in defining the parameters to be entered into the model. During the file reading, the columns intended to be used in the model are defined in the 'use_cols' parameter in ‘read_csv’ function.
 
 ## Preprocessing
@@ -68,10 +91,12 @@ In order to fill in the parameter values to be used in the model, the data was f
 Since this study takes into account the examination and intervention of sepsis frequently seen in intensive care units, one of the definition for sepsis will be continued. On the other hand, there is no physiological or anatomical marker that clearly defines sepsis. 
 
 According to Bone et al (1992) sepsis can be defined as suspected infection and two or more of the following conditions: 
+
 •	temperature > 38 °C or < 36 °C 
 •	heart rate > 90 beats per minute 
 •	respiratory rate > 20 beats per minute
 •	white blood cell count > 12,000 cells/μl, < 4000 cells/μl.
+
 A new column is opened for each of these conditions and its value is 1 if they meet the defined criteria, otherwise 0 is entered. A sepsis condition column is created and the value of sepsis condition is assigned as 1 if the sums of each condition are greater than 1, and 0 if not. If this situation continues for 5 hours from the moment the sepsis condition is 1, it takes the value 1 in a new column denoting the onset of sepsis of the patient at that moment.
 
 An attempt was made to predict the onset of sepsis 3, 6, and 12 hours later, using data from the previous 6 hours.
