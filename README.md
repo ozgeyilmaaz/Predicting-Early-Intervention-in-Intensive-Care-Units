@@ -93,8 +93,11 @@ Since this study takes into account the examination and intervention of sepsis f
 According to Bone et al (1992) sepsis can be defined as suspected infection and two or more of the following conditions: 
 
 •	temperature > 38 °C or < 36 °C 
+
 •	heart rate > 90 beats per minute 
+
 •	respiratory rate > 20 beats per minute
+
 •	white blood cell count > 12,000 cells/μl, < 4000 cells/μl.
 
 A new column is opened for each of these conditions and its value is 1 if they meet the defined criteria, otherwise 0 is entered. A sepsis condition column is created and the value of sepsis condition is assigned as 1 if the sums of each condition are greater than 1, and 0 if not. If this situation continues for 5 hours from the moment the sepsis condition is 1, it takes the value 1 in a new column denoting the onset of sepsis of the patient at that moment.
